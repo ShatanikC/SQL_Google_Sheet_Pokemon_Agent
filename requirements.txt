@@ -1,0 +1,9 @@
+streamlit
+pandas
+langchain-community
+langchain-groq
+langchain-core
+python-dotenv
+sqlalchemy
+google-auth
+google-api-python-client
