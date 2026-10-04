@@ -92,7 +92,7 @@ def get_lean_schema(df):
 
 #System Prompt One
 db,df,engine=init_database()
-llm=ChatGroq(model='llama-3.3-70b-versatile',temperature=0)
+llm=ChatGroq(model='llama-3.1-8b-instant',temperature=0)
 prompt_template = ChatPromptTemplate.from_messages([
     ("system", "You are an expert SQLite developer. Given a question, write a correct SQLite query for the table 'pokemon_data'.\n\nSchema:\n{schema}\n\nCRITICAL: Return ONLY the raw SQL code wrapped inside a markdown code block. Do not include any explanations, introductory text, or conversational filler and always name your columns according to the question."),
     ("human", "{question}")
