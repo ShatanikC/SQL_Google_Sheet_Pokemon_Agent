@@ -148,6 +148,10 @@ if not df.empty:
                     success=True
             except Exception as e:
                 latest_error = str(e)
+                if "429" in str(e) or "rate_limit" in str(e).lower():
+                      st.error(
+                              "⚠️ Groq Free Tier Rate Limit reached. Please wait 30 seconds and try again."
+                        )
                 if attempts < max_attempts:
                     st.warning(f"Attempt {attempts} failed. LLM is correcting the query...")
                     try:
