@@ -130,8 +130,19 @@ if not df.empty:
     submit=st.button('Submit')
     if user_query and user_query!=' ' and submit:
         query_submit=True
-        sql_query=sql_chain.invoke({'question':user_query})
-        response=extract_clean_sql(sql_query.content)
+        try:
+            with st.spinner("Generating SQL query..."):
+                sql_query = sql_chain.invoke({"question": user_query})
+                response = extract_clean_sql(sql_query.content)
+        except Exception as e:
+            if "429" in str(e) or "rate_limit" in str(e).lower():
+              st.error(
+                  "⚠️ Groq Free Tier Rate Limit reached. Please wait 30 seconds and try"
+                  " again."
+              )
+            else:
+              st.error(f"Groq API Error during generation: {e}")
+            st.stop()
         attempts=0
         max_attempts=3
         latest_error='Unknown Error Occurred'
